@@ -10,6 +10,7 @@ pip install virtualenv
 git clone https://github.com/kj141/semantic-segmentation.git
 cd semantic-segmentation
 virtualenv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
