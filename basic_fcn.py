@@ -32,9 +32,9 @@ class FCN(nn.Module):
         x1 = __(self.relu(__(x)))
         # Complete the forward function for the rest of the encoder
 
-        score = __(self.relu(__(out_encoder)))
+        score = __(self.relu(__(out_encoder)))     
         # Complete the forward function for the rest of the decoder
-
-        score = self.classifier(out_decoder)
+        
+        score = self.classifier(out_decoder)                   
 
         return score  # size=(N, n_class, x.H/1, x.W/1)
