@@ -14,28 +14,24 @@ import torch
 import numpy as np
 from dataloader import useful_ids
 
-# (pred == Y) and
-
 def pixel_acc(pred, Y):
     pred = pred.cpu()
     Y = Y.cpu()
     Y_num = Y.numpy()
     pred_num = pred.numpy()
-    return np.sum(np.logical_and((pred_num == Y_num), np.isin(Y_num, useful_ids, invert=True)))/np.size(pred_num)
-#     print(np.logical_not((np.isin(Y, useful_ids))))
-#    return np.sum(1*(np.logical_and((pred == Y), np.logical_not(np.isin(Y, useful_ids)))))/np.numel(pred)
+    return np.count_nonzero(np.logical_and((pred_num == Y_num), np.isin(Y_num, useful_ids, invert=True))), np.count_nonzero(np.isin(Y_num, useful_ids, invert=True))
 
-# def iou(pred, target):
-#     pred = pred.cpu()
-#     target = target.cpu()
-#     pred = pred.squeeze(1)  # BATCH x 1 x H x W => BATCH x H x W
+def iou(pred, Y, class_id):
+    pred = pred.cpu()
+    Y = Y.cpu()
+    pred = pred.squeeze(1)  # BATCH x 1 x H x W => BATCH x H x W
     
-#     intersection = (pred & target).float().sum((1, 2))  # Will be zero if Truth=0 or Prediction=0
-#     union = (pred | target).float().sum((1, 2))         # Will be zzero if both are 0
+    intersection = np.count_nonzero(np.logical_and(pred == class_id, Y == class_id)) 
+    union = np.count_nonzero(np.logical_or(pred == class_id, Y == class_id))
     
-#     iou = (intersection) / (union)  # We smooth our devision to avoid 0/0
+    iou = (intersection) / (union)  # We smooth our devision to avoid 0/0
 
-#     return iou 
+    return iou 
 # def iou(preds, labels):
 #     preds = 
 #     imPred = np.asarray(imPred).copy()
@@ -58,13 +54,3 @@ def pixel_acc(pred, Y):
 #     area_union = area_pred + area_lab - area_intersection
 
 #     return (area_intersection, area_union)
-
-
-# def pixel_acc(preds, label):
-#     preds = preds.cpu()
-#     label = label.cpu()
-#     valid = (label >= 0)
-#     acc_sum = (valid * (preds == label)).sum()
-#     valid_sum = valid.sum()
-#     acc = float(acc_sum) / (valid_sum + 1e-10)
-#     return acc, valid_sum
