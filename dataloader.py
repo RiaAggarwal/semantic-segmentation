@@ -79,6 +79,9 @@ labels_classes = [
     Label(  'bicycle'              , 33 ,       18 , 'vehicle'         , 7       , True         , False        , (119, 11, 32) )
 ]
 
+a = list(filter(lambda x: x.trainId == 255, labels_classes))
+useful_ids = [x.id for x in a]
+
 class CityScapesDataset(Dataset):
 
     def __init__(self, csv_file, n_class=n_class, transforms=None):
