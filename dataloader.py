@@ -116,5 +116,7 @@ class CityScapesDataset(Dataset):
         target = torch.zeros(self.n_class, h, w)
         for c in range(self.n_class):
             target[c][label == c] = 1
-
+        i = np.random.randint(<height_image> - <size_we _want>)
+        j = np.random.randint(clean.size[1] - self.image_size[1])
+        clean = clean.crop([i, j, i+self.image_size[0], j+self.image_size[1]])
         return img, target, label
