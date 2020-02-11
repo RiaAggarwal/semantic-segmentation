@@ -88,6 +88,8 @@ class CityScapesDataset(Dataset):
         self.data      = pd.read_csv(csv_file)
         self.means     = means
         self.n_class   = n_class
+        self.transforms = transforms
+        
         # Add any transformations here
 
     def __len__(self):
@@ -107,6 +109,7 @@ class CityScapesDataset(Dataset):
         img[1] -= self.means[1]
         img[2] -= self.means[2]
 
+        
         # convert to tensor
         img = torch.from_numpy(img.copy()).float()
         label = torch.from_numpy(label.copy()).long()
@@ -116,7 +119,9 @@ class CityScapesDataset(Dataset):
         target = torch.zeros(self.n_class, h, w)
         for c in range(self.n_class):
             target[c][label == c] = 1
-        i = np.random.randint(<height_image> - <size_we _want>)
-        j = np.random.randint(clean.size[1] - self.image_size[1])
-        clean = clean.crop([i, j, i+self.image_size[0], j+self.image_size[1]])
-        return img, target, label
+        
+        out_dict = {'image': img, 'target': target, 'label': label}
+        
+        if self.transforms:
+            out_dict = self.transforms(out_dict)
+        return out_dict
