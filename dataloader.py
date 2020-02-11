@@ -1,10 +1,11 @@
 from torch.utils.data import Dataset, DataLoader# For custom data-sets
 import torchvision.transforms as transforms
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageOps
 import torch
 import pandas as pd
 from collections import namedtuple
+import matplotlib.pyplot as plt
 
 n_class    = 34
 means     = np.array([103.939, 116.779, 123.68]) / 255. # mean of three channels in the order of BGR
@@ -88,18 +89,27 @@ class CityScapesDataset(Dataset):
         self.data      = pd.read_csv(csv_file)
         self.means     = means
         self.n_class   = n_class
+        
         # Add any transformations here
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
+        
         img_name   = self.data.iloc[idx, 0]
-
-        img = np.asarray(Image.open(img_name).convert('RGB'))
+        img_full = Image.open(img_name).convert('RGB')
         label_name = self.data.iloc[idx, 1]
-        label      = np.asarray(Image.open(label_name))
-
+        label_full     = Image.open(label_name)
+        
+        img, label = self.crop_image(img_full, label_full)
+        
+        img, label = self.rhflip(img, label)
+        img, label = self.rvflip(img, label)
+        
+        
+        img = np.asarray(img)
+        label = np.asarray(label)
         # reduce mean
         img = img[:, :, ::-1]  # switch to BGR
         img = np.transpose(img, (2, 0, 1)) / 255.
@@ -107,7 +117,9 @@ class CityScapesDataset(Dataset):
         img[1] -= self.means[1]
         img[2] -= self.means[2]
 
+        
         # convert to tensor
+        
         img = torch.from_numpy(img.copy()).float()
         label = torch.from_numpy(label.copy()).long()
 
@@ -116,5 +128,26 @@ class CityScapesDataset(Dataset):
         target = torch.zeros(self.n_class, h, w)
         for c in range(self.n_class):
             target[c][label == c] = 1
-
+        
         return img, target, label
+    
+    def rhflip(self,img,label,p=0.5):
+        if (np.random.random() > p):
+            return ImageOps.mirror(img), ImageOps.mirror(label)
+        else:
+            return img,label
+        
+    def rvflip(self,img,label,p=0.5):
+        if (np.random.random() > p):
+            return ImageOps.flip(img), ImageOps.flip(label)
+        else:
+            return img,label 
+     
+    def crop_image(self, img, label, image_size=(512, 256)):
+        i = np.random.randint(img.size[0] - image_size[0])
+        j = np.random.randint(img.size[1] - image_size[1])
+        img = img.crop([i, j, i+image_size[0], j+image_size[1]])
+        label = label.crop([i, j, i+image_size[0], j+image_size[1]])
+        
+        return img, label
+        
