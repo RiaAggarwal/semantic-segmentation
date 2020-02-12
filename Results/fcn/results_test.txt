@@ -1,0 +1,5 @@
+{'accuracy': 0,
+ 'epoch': 0,
+ 'iou_net': 0.0,
+ 'iou_net_class_wise': {0: 0.0, 1: 0.0, 2: 0.0, 3: 0.0, 4: 0.0},
+ 'total_loss': 673.5386364459991}
