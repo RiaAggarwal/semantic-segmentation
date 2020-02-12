@@ -80,6 +80,7 @@ labels_classes = [
     Label(  'bicycle'              , 33 ,       18 , 'vehicle'         , 7       , True         , False        , (119, 11, 32) )
 ]
 
+idsColor = dict((x.id,list(x.color)) for x in labels_classes)
 a = list(filter(lambda x: x.trainId == 255, labels_classes))
 useful_ids = [x.id for x in a]
 
@@ -89,6 +90,7 @@ class CityScapesDataset(Dataset):
         self.data      = pd.read_csv(csv_file)
         self.means     = means
         self.n_class   = n_class
+        self.mode = csv_file
         
         # Add any transformations here
 
@@ -102,10 +104,14 @@ class CityScapesDataset(Dataset):
         label_name = self.data.iloc[idx, 1]
         label_full     = Image.open(label_name)
         
-        img, label = self.crop_image(img_full, label_full)
+        if('test' not in self.mode):
         
-        img, label = self.rhflip(img, label)
-        img, label = self.rvflip(img, label)
+            img, label = self.crop_image(img_full, label_full)
+        
+            img, label = self.rhflip(img, label)
+            img, label = self.rvflip(img, label)
+        else:
+            img, label = img_full, label_full
         
         
         img = np.asarray(img)
@@ -121,13 +127,14 @@ class CityScapesDataset(Dataset):
         # convert to tensor
         
         img = torch.from_numpy(img.copy()).float()
+        img_full = torch.from_numpy(np.array(img_full).copy()).float()
         label = torch.from_numpy(label.copy()).long()
-
         # create one-hot encoding
-        h, w = label.shape
-        target = torch.zeros(self.n_class, h, w)
-        for c in range(self.n_class):
-            target[c][label == c] = 1
+        target = ''
+#         h, w = label.shape
+#         target = torch.zeros(self.n_class, h, w)
+#         for c in range(self.n_class):
+#             target[c][label == c] = 1
         
         return img, target, label
     
