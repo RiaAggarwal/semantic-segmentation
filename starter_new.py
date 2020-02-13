@@ -165,7 +165,7 @@ def train():
         print('training loss : ', curEpochLoss)
         print("Finish epoch {}, time elapsed {}".format(curEpoch, time.time() - ts))
         
-        if(curEpoch % 2 == 0):
+        if(curEpoch % 4 == 0):
             epochList.append(curEpoch)
             all_train_losses.append(curEpochLoss)
             val_loss, val_accuracy, val_iou_net, val_iou_net_class_wise = val(curEpoch)
@@ -193,8 +193,8 @@ def train():
                 results['epoch_list'] = epochList
                 with open(MYDIR + '/results_val.txt', 'wt') as out:
                     pprint(results, stream=out)
-                #torch.save(model, MYDIR + '/best_model')
-                test(2)
+                torch.save({'model_state_dict' : model.state_dict()}, MYDIR + '/best_model')
+                test(1)
         
         torch.save({
             'model_state_dict' : model.state_dict(),
