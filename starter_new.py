@@ -34,9 +34,14 @@ train_dataset = CityScapesDataset(csv_file='./Data/train.csv')
 val_dataset = CityScapesDataset(csv_file='./Data/val.csv')
 test_dataset = CityScapesDataset(csv_file='./Data/test.csv')
 
+
 _batch_size = 4
 _num_workers = 4
 iou_classes = [11, 20, 24, 26, 33]
+_weighted_loss = True
+epochs     = 1000
+_learning_rate = 5e-3
+
 
 train_loader = DataLoader(dataset=train_dataset,
                           batch_size=_batch_size,
@@ -61,7 +66,7 @@ def init_weights(m):
         #torch.nn.init.xavier_uniform(m.bias.data)
         m.bias.data.zero_()
         
-epochs     = 1000
+        
 criterion = nn.CrossEntropyLoss()# Choose an appropriate loss function from https://pytorch.org/docs/stable/_modules/torch/nn/modules/loss.html
 model = modelToRun
 # for name, params in fcn_model.named_parameters():
@@ -70,7 +75,7 @@ model = modelToRun
 model.apply(init_weights)
 #fcn_model = torch.load('best_model')
 
-optimizer = optim.Adam(model.parameters(), lr=5e-3)
+optimizer = optim.Adam(model.parameters(), lr=_learning_rate)
 
 
 # In[4]:
@@ -153,8 +158,8 @@ def train():
             else:
                 inputs, labels, targets_onehot = X, Y, tar# Unpack variables into inputs and labels
             outputs = model(inputs)
-            loss = criterion(outputs, labels)
-            #loss = weighted_ce_loss(outputs, targets_onehot, weighted=True)
+#             loss = criterion(outputs, labels)
+            loss = weighted_ce_loss(outputs, targets_onehot, weighted=_weighted_loss)
             curEpochLoss.append(loss.item())
             loss.backward()
             optimizer.step()
@@ -241,13 +246,13 @@ def val(epoch):
         
         _, preds = torch.max(outputs_val, 1)
         
-        #loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=True)
-        loss_val = criterion(outputs_val, labels_val).item()
+        loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=_weighted_loss)
+#         loss_val = criterion(outputs_val, labels_val)
         
         preds_cpu = preds.cpu()
         Y_cpu = Y_val.cpu()
         
-        total_loss.append(loss_val)
+        total_loss.append(loss_val.item())
         
         nn, dd = pixel_acc(preds_cpu, Y_cpu)
         acc_num += nn

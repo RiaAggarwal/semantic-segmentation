@@ -90,7 +90,8 @@ def weighted_ce_loss(outputs, targets_one_hot, weighted=False):
         cls_weights = ss/targets_one_hot.sum((0,2,3))
         cls_weights[cls_weights > ss] = 0
     
-    logp = torch.log(nn.functional.softmax(outputs, dim=1) + 1e-6)
+    logp = nn.functional.log_softmax(outputs,1)
+
     return -torch.mean(tensordot_pytorch(targets_one_hot*logp, cls_weights, axes=[1,0]))
 
 def dice_loss(outputs, targets_one_hot, weighted=False):
