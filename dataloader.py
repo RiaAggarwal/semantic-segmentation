@@ -105,7 +105,7 @@ class CityScapesDataset(Dataset):
         label_name = self.data.iloc[idx, 1]
         label_full     = Image.open(label_name)
         
-        if('test' not in self.mode):
+        if('test' not in self.mode and 'val' not in self.mode):
         
             img, label = self.crop_image(img_full, label_full)
         
