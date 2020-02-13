@@ -81,7 +81,8 @@ labels_classes = [
 ]
 
 idsColor = dict((x.id,list(x.color)) for x in labels_classes)
-a = list(filter(lambda x: x.trainId == 255, labels_classes))
+idsNames = dict((x.id,x.name) for x in labels_classes)
+a = list(filter(lambda x: x.trainId != 255, labels_classes))
 useful_ids = [x.id for x in a]
 
 class CityScapesDataset(Dataset):

@@ -5,7 +5,7 @@ from dataloader import useful_ids
 def pixel_acc(pred, Y):
     Y_num = Y.numpy()
     pred_num = pred.numpy()
-    return np.count_nonzero(np.logical_and((pred_num == Y_num), np.isin(Y_num, useful_ids, invert=True))), np.count_nonzero(np.isin(Y_num, useful_ids, invert=True))
+    return np.count_nonzero(np.logical_and((pred_num == Y_num), np.isin(Y_num, useful_ids, invert=False))), np.count_nonzero(np.isin(Y_num, useful_ids, invert=False))
 
 def iou(pred, Y, class_id):
     pred = pred.squeeze(1)  # BATCH x 1 x H x W => BATCH x H x W
