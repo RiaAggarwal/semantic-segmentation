@@ -5,7 +5,11 @@ __pycache__/
 Data/
 Results/
 model_to_run.py
-starter_new.ipynb
+*.ipynb
+
+
+
+
 
 # C extensions
 *.so
