@@ -12,6 +12,17 @@ cd semantic-segmentation
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+
+
+launch-scipy-ml-gpu.sh K8S_TIMEOUT_SECONDS=43200 -b
+cd semantic-segmentation
+screen -S <your-desired-screen-name>
+python3 -u starter-new.py > <your-desired-logfile-name>.log
+
+TO VIEW LOGS------
+tail -f -n +0 <your-logfile-name>.log
+-------------
 ```
 
 ## Directory
