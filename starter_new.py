@@ -35,12 +35,9 @@ val_dataset = CityScapesDataset(csv_file='./Data/val.csv')
 test_dataset = CityScapesDataset(csv_file='./Data/test.csv')
 
 
-_batch_size = 4
 _num_workers = 4
 iou_classes = [11, 20, 24, 26, 33]
-_weighted_loss = True
 epochs     = 1000
-_learning_rate = 5e-3
 
 
 train_loader = DataLoader(dataset=train_dataset,
@@ -158,8 +155,11 @@ def train():
             else:
                 inputs, labels, targets_onehot = X, Y, tar# Unpack variables into inputs and labels
             outputs = model(inputs)
-#             loss = criterion(outputs, labels)
-            loss = weighted_ce_loss(outputs, targets_onehot, weighted=_weighted_loss)
+            if _weighted_loss:
+                loss = weighted_ce_loss(outputs, targets_onehot, weighted=_weighted_loss)
+            else:
+                loss = criterion(outputs, labels)
+            
             curEpochLoss.append(loss.item())
             loss.backward()
             optimizer.step()
@@ -233,7 +233,7 @@ def val(epoch):
     #iou_den = len(iou_classes)*[0] 
     iou_num = {}
     iou_den = {}
-    
+    ts = time.time()
     for iter, (X_val, tar_val, Y_val) in enumerate(val_loader):
         if use_gpu:
             inputs_val = X_val.cuda()   # Move your inputs onto the gpu
@@ -246,8 +246,10 @@ def val(epoch):
         
         _, preds = torch.max(outputs_val, 1)
         
-        loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=_weighted_loss)
-#         loss_val = criterion(outputs_val, labels_val)
+        if _weighted_loss:
+            loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=_weighted_loss)
+        else:
+            loss_val = criterion(outputs_val, labels_val)
         
         preds_cpu = preds.cpu()
         Y_cpu = Y_val.cpu()
@@ -284,7 +286,8 @@ def val(epoch):
         iou_net_num += iou_num[c]
         iou_net_den += iou_den[c]
     iou_net = iou_net_num/iou_net_den
-
+    print("Validation epoch {}, time elapsed {}".format(epoch, time.time() - ts))
+    
     return total_loss, accuracy, iou_net, iou_net_class_wise
 
 def colorMap(a, i):
