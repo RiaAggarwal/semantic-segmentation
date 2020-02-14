@@ -118,12 +118,14 @@ class CityScapesDataset(Dataset):
                         a = np.random.random()*5
                         img_full = TF.rotate(img_full, -1*a)
                         label_full = TF.rotate(label_full, -1*a)
-        
-            #img, label = self.crop_image(img_full, label_full)
-            img, label = self.resize_image(img_full, label_full)
-            
-            if('train' in self.mode):
+                        
+                img, label = self.resize_image(img_full, label_full)
+                #img, label = self.crop_image(img_full, label_full)
                 img, label = self.rhflip(img, label)
+                
+            if('val' in self.mode):
+                img, label = self.crop_image(img_full, label_full)
+                
         else:
             img, label = img_full, label_full
         
