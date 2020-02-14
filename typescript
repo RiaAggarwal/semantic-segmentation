@@ -1,94 +1,6 @@
-Script started on 2020-02-14 02:56:25-0800
-[r[m[2J[H[?7h[?1;4;6l[?1049h[22;0;0t[4l[?1h=[0m(B[1;61r[H[2J[H[2Jdmund@dmund-11218:~/semantic-segmentation$ rm -rf Results/fcn_weighted_idmLoss/
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$ ls
-basic_fcn.py  dataloader.py  fcn_logs3.log  fcn_unweighted_idmLoss.log  inception.py  model_to_run.py  README.md[9CResults[12Cstarter_new.py  unet.py   venv
-Data[10Cfcn_logs2.log  fcn_logs.log   fcn_weighted_idm.log[8CLICENSE[7C__pycache__[6Crequirements.txt  starter_new.ipynb  typescript[6Cutils.py  vgg_transfer.py
-dmund@dmund-11218:~/semantic-segmentation$ screen ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ python3 -u starter_new.py > fcn_weighted_idm.log
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-starter_new.py:104: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).o 
-plt.figure()
-starter_new.py:112: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).o 
-plt.figure()
-starter_new.py:316: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).o 
-f = plt.figure(figsize=(16,8))
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-starter_new.py:94: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). m
-plt.figure()
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-Traceback (most recent call last):Tr
-File "starter_new.py", line 379, in <module>[42D
-print('here')  
-File "starter_new.py", line 217, in train[39D
-}, MYDIR+'/'+'model_params')  
-File "/datasets/home/16/116/dmund/.local/lib/python3.7/site-packages/torch/serialization.py", line 327, in save  Fi
-with _open_file_like(f, 'wb') as opened_file:  
-File "/datasets/home/16/116/dmund/.local/lib/python3.7/site-packages/torch/serialization.py", line 212, in _open_file_like  Fi
-return _open_file(name_or_buffer, mode)  
-File "/datasets/home/16/116/dmund/.local/lib/python3.7/site-packages/torch/serialization.py", line 193, in __init__  Fi
-super(_open_file, self).__init__(open(name, mode))
-FileNotFoundError: [Errno 2] No such file or directory: './Results/fcn_weighted_idmLoss/model_params'
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$ python3 -u starter_new.py > fcn_weighted_idm.log
-Traceback (most recent call last):Tr
-File "starter_new.py", line 44, in <module>[41D
-batch_size=_batch_size,
-NameError: name '_batch_size' is not defined
-dmund@dmund-11218:~/semantic-segmentation$ python3 -u starter_new.py > fcn_weighted_idm.log
-Traceback (most recent call last):Tr
-File "starter_new.py", line 382, in <module>[42D
-train()  
-File "starter_new.py", line 159, in train[39D
-loss = weighted_ce_loss(outputs, targets_onehot, weighted=_weighted_loss)
-NameError: name '_weighted_loss' is not defined
-dmund@dmund-11218:~/semantic-segmentation$ python3 -u starter_new.py > fcn_weighted_idm.log
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-^C^CException ignored in: <function WeakValueDictionary.__init__.<locals>.remove at 0x7f777eed48c8>
-Traceback (most recent call last):
-  File "/opt/conda/lib/python3.7/weakref.py", line 109, in remove
-    def remove(wr, selfref=ref(self), _atomic_removal=_remove_dead_weakref):
-KeyboardInterrupt
-Traceback (most recent call last):
-  File "starter_new.py", line 382, in <module>
-    train()
-  File "starter_new.py", line 149, in train
-    optimizer.zero_grad()
-KeyboardInterrupt
-^C^C^C^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ python3 -u starter_new.py > fcn_weighted_idm.log^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ rm -rf Results/fcn[?5h[?5l
-fcn/                    fcn_unweighted_idmLoss/ fcn_weighted_idmLoss/   
-dmund@dmund-11218:~/semantic-segmentation$ rm -rf Results/fcn
-fcn/                    fcn_unweighted_idmLoss/ fcn_weighted_idmLoss/   
-dmund@dmund-11218:~/semantic-segmentation$ rm -rf Results/fcn_We[?5h[?5l[K[Kweighted_idmLoss/
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ 
-dmund@dmund-11218:~/semantic-segmentation$ rm -rf Results/fcn_weighted_idmLoss/python3 -u starter_new.py > fcn_weighted_idm.log
-[?1l>[61;1H
-[?1049l[23;0;0t[detached from 121.fcn]
-[7mUtmp slot not found -> not removed[27m                                      
-Script done on 2020-02-14 02:59:22-0800
+Script started on 2020-02-14 03:14:37-0800
+There is a screen on:
+	121.fcn	(02/13/2020 10:48:29 PM)	(Detached)
+1 Socket in /run/screen/S-dmund.
+
+Script done on 2020-02-14 03:14:38-0800
