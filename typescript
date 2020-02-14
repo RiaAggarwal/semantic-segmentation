@@ -1,21 +1,6 @@
-Script started on 2020-02-14 04:26:18-0800
-[r[m[2J[H[?7h[?1;4;6l[?1049h[22;0;0t[4l[?1h=[0m(B[1;36r[H[2J[H[2Jkujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter-new.py > fcn_resized.log
-python3: can't open file 'starter-new.py': [Errno 2] No such file or directory
-kujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter_new.py > fcn_resized.log
-^CTraceback (most recent call last):
-  File "starter_new.py", line 382, in <module>
-    train()
-  File "starter_new.py", line 165, in train
-    optimizer.step()
-  File "/opt/conda/lib/python3.7/site-packages/torch/optim/adam.py", line 103, in step
-    denom = (exp_avg_sq.sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
-KeyboardInterrupt
-kujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter_new.py > fcn_resized.log-new.py > fcn_resized.logls[Knano .gitignore [6Pgit status[K[K[K[K[K[K[K[K[K[K[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5lscreen -r
-There is a screen on:
-[8C7758.fcn_resized[8C(02/14/2020 04:24:10 AM)[8C(Attached)
-There is no screen to be resumed.
-kujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ scree[K[K[K[K[K[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5lscreen -rpython3 -u starter_new.py > fcn_resized.log
+Script started on 2020-02-14 04:59:38-0800
+[r[m[2J[H[?7h[?1;4;6l[?1049h[22;0;0t[4l[?1h=[0m(B[1;36r[H[2J[H[2Jkujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter-new.py > <your-desired-logfile-name>.log[P[1@_new.py > <your-desired-logfile-name>[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.log[P.logf.logc.logn.log_.logu.logn.logw.loge.logi.logg.logh.logt.loge.logd.log_.logr.loge.logs.logi.logz.loge.logd.log.log
 [?1l>[36;1H
-[?1049l[23;0;0t[detached from 7758.fcn_resized]
-[7mUtmp slot not found -> not removed[27m                                      [19A
-Script done on 2020-02-14 04:27:20-0800
+[?1049l[23;0;0t[detached from 160.fcn_unweighted_resized]
+[7mUtmp slot not found -> not removed[27m                                      [34A
+Script done on 2020-02-14 05:00:42-0800
