@@ -1,61 +1,21 @@
-Script started on 2020-02-14 04:20:58-0800
-[r[m[2J[H[?7h[?1;4;6l[?1049h[22;0;0t[4l[?1h=[0m(B[1;61r[H[2J[H[2J  File "/datasets/home/16/116/dmund/.local/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 961, in __del__[2;5Hself._shutdown_workers()  
-File "/datasets/home/16/116/dmund/.local/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 941, in _shutdown_workers[4;5Hw.join()  
-File "/opt/conda/lib/python3.7/multiprocessing/process.py", line 140, in join[6;5Hres = self._popen.wait(timeout)  
-File "/opt/conda/lib/python3.7/multiprocessing/popen_fork.py", line 48, in wait[8;5Hreturn self.poll(os.WNOHANG if timeout == 0.0 else 0)  
-File "/opt/conda/lib/python3.7/multiprocessing/popen_fork.py", line 28, in poll[77D
-pid, sts = os.waitpid(self.pid, flag)
-KeyboardInterrupt:
-Traceback (most recent call last):Tr
-File "starter_new.py", line 382, in <module>[42D
-train()  
-File "starter_new.py", line 176, in train[39D
-val_loss, val_accuracy, val_iou_net, val_iou_net_class_wise = val(curEpoch)  
-File "starter_new.py", line 264, in val[37D
-i_nn, i_dd = iou(preds_cpu, Y_cpu, useful_ids[iou_cc_idx])  
-File "/datasets/home/home-00/16/116/dmund/semantic-segmentation/utils.py", line 14, in iou[88D
-intersection = np.count_nonzero(np.logical_and(pred == class_id, Y == class_id))  
-File "<__array_function__ internals>", line 6, in count_nonzero  
-File "/datasets/home/16/116/dmund/.local/lib/python3.7/site-packages/numpy/core/numeric.py", line 452, in count_nonzero  Fi
-return multiarray.count_nonzero(a)
+Script started on 2020-02-14 04:26:18-0800
+[r[m[2J[H[?7h[?1;4;6l[?1049h[22;0;0t[4l[?1h=[0m(B[1;36r[H[2J[H[2Jkujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter-new.py > fcn_resized.log
+python3: can't open file 'starter-new.py': [Errno 2] No such file or directory
+kujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter_new.py > fcn_resized.log
+^CTraceback (most recent call last):
+  File "starter_new.py", line 382, in <module>
+    train()
+  File "starter_new.py", line 165, in train
+    optimizer.step()
+  File "/opt/conda/lib/python3.7/site-packages/torch/optim/adam.py", line 103, in step
+    denom = (exp_avg_sq.sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
 KeyboardInterrupt
-^CError in atexit._run_exitfuncs:
-Traceback (most recent call last):Tr
-File "/opt/conda/lib/python3.7/multiprocessing/popen_fork.py", line 28, in poll[77D
-pid, sts = os.waitpid(self.pid, flag)
-KeyboardInterrupt
-^C^C^C^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ rm Results/fcn
-fcn/[20Cfcn_unweighted_idmLoss/ fcn_weighted_idmLoss/
-dmund@dmund-11218:~/semantic-segmentation$ rm Results/fcn
-fcn/[20Cfcn_unweighted_idmLoss/ fcn_weighted_idmLoss/
-dmund@dmund-11218:~/semantic-segmentation$ rm -rf Results/fcn_weighted_idmLoss/
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$
-dmund@dmund-11218:~/semantic-segmentation$ python3 -u starter_new.py > fcn_weighted_idm.log
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-^CTraceback (most recent call last):^C
-File "starter_new.py", line 382, in <module>[42D
-train()  
-File "starter_new.py", line 149, in train[39D
-optimizer.zero_grad()
-KeyboardInterrupt
-^C^C^C^C^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ ^C
-dmund@dmund-11218:~/semantic-segmentation$ [?1l>[61;1H
-[?1049l[23;0;0t[detached from 121.fcn]
-[7mUtmp slot not found -> not removed[27m  dmund@dmund-11218:~/semantic-segment[43C
-Script done on 2020-02-14 04:20:59-0800
+kujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ python3 -u starter_new.py > fcn_resized.log-new.py > fcn_resized.logls[Knano .gitignore [6Pgit status[K[K[K[K[K[K[K[K[K[K[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5lscreen -r
+There is a screen on:
+[8C7758.fcn_resized[8C(02/14/2020 04:24:10 AM)[8C(Attached)
+There is no screen to be resumed.
+kujain@dsmlp-jupyter-kujain:~/CSE253/semantic-segmentation$ scree[K[K[K[K[K[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5l[?5h[?5lscreen -rpython3 -u starter_new.py > fcn_resized.log
+[?1l>[36;1H
+[?1049l[23;0;0t[detached from 7758.fcn_resized]
+[7mUtmp slot not found -> not removed[27m                                      [19A
+Script done on 2020-02-14 04:27:20-0800
