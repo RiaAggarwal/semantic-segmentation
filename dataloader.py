@@ -7,6 +7,7 @@ import pandas as pd
 from collections import namedtuple
 import matplotlib.pyplot as plt
 import torchvision.transforms.functional as TF
+import sys
 
 n_class    = 34
 means     = np.array([103.939, 116.779, 123.68]) / 255. # mean of three channels in the order of BGR
@@ -119,6 +120,8 @@ class CityScapesDataset(Dataset):
                         label_full = TF.rotate(label_full, -1*a)
         
             img, label = self.crop_image(img_full, label_full)
+#             img, label = self.resize_image(img_full, label_full)
+            
             if('train' in self.mode):
                 img, label = self.rhflip(img, label)
         else:
