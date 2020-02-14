@@ -149,6 +149,11 @@ class CityScapesDataset(Dataset):
             return ImageOps.flip(img), ImageOps.flip(label)
         else:
             return img,label 
+        
+    def resize_image(self, img, label, image_resize=(512,256)):
+        img = img.resize((image_resize[0], image_resize[1]))
+        label = label.resize((image_resize[0], image_resize[1]))
+        return img, label
      
     def crop_image(self, img, label, image_size=(512, 256)):
         i = np.random.randint(img.size[0] - image_size[0])

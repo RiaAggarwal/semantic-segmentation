@@ -81,7 +81,7 @@ class Unet(nn.Module):
         self.classifier = nn.Conv2d(64, self.n_class, kernel_size=1)
 
     def forward(self, x):
-        
+        #print(x.size())
         # Complete the forward function for the rest of the encoder
         x1 = self.bnd1(self.relu(self.conv1(x)))
         x1 = self.bnd1_1(self.relu(self.conv1_1(x1)))
@@ -124,6 +124,7 @@ class Unet(nn.Module):
         x10 = torch.cat((x10, x1), dim = 1)
         x10 = self.bn10(self.relu(self.conv10(x10)))
         out_decoder = self.bn10_10(self.relu(self.conv10_10(x10)))
+        #print(out_decoder.size())
         
 #         x11 = self.bn5(self.relu(self.deconv5(x10)))
 #         out_decoder = self.bn11(self.relu(self.conv11(x11)))
