@@ -41,7 +41,7 @@ epochs     = 1000
 
 
 train_loader = DataLoader(dataset=train_dataset,
-                          batch_size=_batch_size,
+                          batch_size=batch_size,
                           num_workers=_num_workers,
                           shuffle=True)
 val_loader = DataLoader(dataset=val_dataset,
@@ -72,7 +72,7 @@ model = modelToRun
 model.apply(init_weights)
 #fcn_model = torch.load('best_model')
 
-optimizer = optim.Adam(model.parameters(), lr=_learning_rate)
+optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 
 # In[4]:
@@ -155,8 +155,8 @@ def train():
             else:
                 inputs, labels, targets_onehot = X, Y, tar# Unpack variables into inputs and labels
             outputs = model(inputs)
-            if _weighted_loss:
-                loss = weighted_ce_loss(outputs, targets_onehot, weighted=_weighted_loss)
+            if weighted_loss:
+                loss = weighted_ce_loss(outputs, targets_onehot, weighted=weighted_loss)
             else:
                 loss = criterion(outputs, labels)
             
@@ -246,8 +246,8 @@ def val(epoch):
         
         _, preds = torch.max(outputs_val, 1)
         
-        if _weighted_loss:
-            loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=_weighted_loss)
+        if weighted_loss:
+            loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=weighted_loss)
         else:
             loss_val = criterion(outputs_val, labels_val)
         
