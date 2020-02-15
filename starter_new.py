@@ -54,6 +54,7 @@ test_loader = DataLoader(dataset=test_dataset,
                           shuffle=False)
 
 
+
 # In[3]:
 
 
@@ -123,10 +124,11 @@ def plotIousClassWise(base, d):
 
 # In[ ]:
 
-
+loaded_cls_weights = torch.from_numpy(np.load('class_weigths.npz')['class_weights'])
 use_gpu = torch.cuda.is_available()
 if use_gpu:
     model = model.cuda()
+    loaded_cls_weights = loaded_cls_weights.cuda()
     
 all_train_losses = []
 all_val_losses = []
@@ -156,7 +158,8 @@ def train():
                 inputs, labels, targets_onehot = X, Y, tar# Unpack variables into inputs and labels
             outputs = model(inputs)
             if weighted_loss:
-                loss = weighted_ce_loss(outputs, targets_onehot, weighted=weighted_loss)
+#                 loss = weighted_ce_loss(outputs, targets_onehot, weighted=weighted_loss) + dice_loss(outputs, targets_onehot, weighted=weighted_loss)
+                loss = weighted_ce_loss(outputs, targets_onehot, loaded_cls_weights, weighted=weighted_loss)
             else:
                 loss = criterion(outputs, labels)
             
@@ -247,7 +250,8 @@ def val(epoch):
         _, preds = torch.max(outputs_val, 1)
         
         if weighted_loss:
-            loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=weighted_loss)
+#             loss_val = weighted_ce_loss(outputs_val, tar_val, weighted=weighted_loss) + dice_loss(outputs_val, tar_val, weighted=weighted_loss)
+            loss_val = weighted_ce_loss(outputs_val, tar_val, loaded_cls_weights, weighted=weighted_loss)
         else:
             loss_val = criterion(outputs_val, labels_val)
         

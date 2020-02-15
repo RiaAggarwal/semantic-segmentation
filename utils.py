@@ -94,28 +94,36 @@ def tensordot_pytorch(a, b, axes=2):
 
 #     return -torch.mean(tensordot_pytorch(targets_one_hot*logp, cls_weights, axes=[1,0]))
 
-def weighted_ce_loss(outputs, targets_one_hot, weighted=False):
+def weighted_ce_loss(outputs, targets_one_hot, loaded_cls_weights, weighted=False):
     sizes = outputs.size()
-    cls_weights = torch.Tensor(np.ones(sizes[1])).cuda()
     if weighted:
-        ss = targets_one_hot.sum()
-        cls_weights = ss/targets_one_hot.sum((0,2,3))
-        cls_weights[cls_weights > ss] = 0
+        cls_weights = loaded_cls_weights
+#         ss = targets_one_hot.sum()
+#         cls_weights = ss/targets_one_hot.sum((0,2,3))
+#         cls_weights[cls_weights > ss] = 0
+    else:
+        cls_weights = torch.Tensor(np.ones(sizes[1])).cuda()
     
     logp = nn.functional.log_softmax(outputs,1)
     appended_weightes = cls_weights.expand(sizes[3], sizes[1]).expand(sizes[2], sizes[3], sizes[1]).expand(sizes[0], sizes[2], sizes[3], sizes[1]).permute(0,3,1,2)
     
     return -torch.mean((targets_one_hot*logp)*appended_weightes)
 
-def dice_loss(outputs, targets_one_hot, weighted=False):
-    cls_weights = torch.Tensor(np.ones(34)).cuda()
+def dice_loss(outputs, targets_one_hot, loaded_cls_weights, weighted=False):
+    sizes = outputs.size()
     if weighted:
-        ss = targets_one_hot.sum()
-        cls_weights = ss/targets_one_hot.sum((0,2,3))
-        cls_weights[cls_weights > ss] = 0
+        cls_weights = loaded_cls_weights
+#         ss = targets_one_hot.sum()
+#         cls_weights = ss/targets_one_hot.sum((0,2,3))
+#         cls_weights[cls_weights > ss] = 0
+    else:
+        cls_weights = torch.Tensor(np.ones(sizes[1])).cuda()
         
     soft_outputs = nn.functional.softmax(outputs, dim=1)
-    weighted_targets = tensordot_pytorch(targets_one_hot, cls_weights, axes=[1,0])
+    appended_weightes = cls_weights.expand(sizes[3], sizes[1]).expand(sizes[2], sizes[3], sizes[1]).expand(sizes[0], sizes[2], sizes[3], sizes[1]).permute(0,3,1,2)
+    
+    weighted_targets = targets_one_hot*appended_weightes
+#     weighted_targets = tensordot_pytorch(targets_one_hot, cls_weights, axes=[1,0])
     
     smooth = 1.
     iflat = soft_outputs.view(-1)
